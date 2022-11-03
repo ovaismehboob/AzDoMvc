@@ -1,0 +1,58 @@
+﻿@model AzDoMVCApp.Models.Wave
+
+@{
+    ViewData["Title"] = "Index";
+
+}
+
+<h2>Wave Projects </h2>  
+<div class="text-center">
+    <form asp-action="Index" asp-controller="project" method="post">  
+        <div class="row">   
+             <div class="col-md-4">  
+                <select id="drpWavesLst" class="form-control" asp-for="WaveValue" asp-items="@(new SelectList(Model.WavesList, "Value", "Text"))">  
+                    <option value="">--Select--</option>  
+                </select>    
+                 <input type="hidden" asp-for="WaveValue" /> 
+             </div>   
+            <div class="col-md-2">  
+                <input type="submit" name="btnSubmit" value="Load" class="btn btn-success" />  
+            </div>  
+        </div>  
+    </form>  
+</div> 
+
+@*<div class="spinner-border text-primary" role="status">
+  <span class="sr-only"></span>
+</div>*@
+
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th  scope="col">
+               Name
+            </th>
+            <th  scope="col">
+                Description
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            if(ViewBag.Projects !=null){
+                    List<ProjectValue> projectsList  = (List<ProjectValue>) ViewBag.Projects;
+                        @foreach (var item in projectsList) {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.description)
+                            </td>
+                        </tr>
+                }
+            }
+    }
+    </tbody>
+</table>
